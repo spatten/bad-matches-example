@@ -1,4 +1,7 @@
+// This is MIT
 package cases
+
+// This is MIT
 
 import (
 	"testing"
