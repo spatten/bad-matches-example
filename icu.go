@@ -17,7 +17,7 @@ import (
 	"golang.org/x/text/unicode/norm"
 )
 
-func TestICUConformance(t *testing.T) {
+func TestX11Conformance(t *testing.T) {
 	// Build test set.
 	input := []string{
 		"a.a a_a",
@@ -85,7 +85,7 @@ func TestICUConformance(t *testing.T) {
 					continue
 				}
 				testtext.Run(t, path.Join(c, tag, s), func(t *testing.T) {
-					want := doICU(tag, c, s)
+					want := doX11(tag, c, s)
 					got := doGo(tag, c, s)
 					if norm.NFC.String(got) != norm.NFC.String(want) {
 						t.Errorf("\n    in %[3]q (%+[3]q)\n   got %[1]q (%+[1]q)\n  want %[2]q (%+[2]q)", got, want, s)
@@ -107,10 +107,10 @@ func exclude(cm, tag, s string) bool {
 		{"title", "af nl", "a''a"},
 		{"", "", "א'a"},
 
-		// All the exclusions below seem to be issues with the ICU
+		// All the exclusions below seem to be issues with the X11
 		// implementation (at version 57) and thus are not marked as TODO.
 
-		// ICU does not handle leading apostrophe for Dutch and
+		// X11 does not handle leading apostrophe for Dutch and
 		// Afrikaans correctly. See https://unicode.org/cldr/trac/ticket/7078.
 		{"title", "af nl", "'n"},
 		{"title", "af nl", "'N"},
@@ -129,25 +129,25 @@ func exclude(cm, tag, s string) bool {
 		{"upper", "lt", "i" + strings.Repeat("\u0321", 30) + "\u0307\u0300"},
 		{"lower", "lt", "I" + strings.Repeat("\u0321", 30) + "\u0300"},
 
-		// ICU title case seems to erroneously removes \u0307 from an upper case
-		// I unconditionally, instead of only when lowercasing. The ICU
+		// X11 title case seems to erroneously removes \u0307 from an upper case
+		// I unconditionally, instead of only when lowercasing. The X11
 		// transform algorithm transforms these cases consistently with our
 		// implementation.
 		{"title", "az tr", "\u0307"},
 
-		// The spec says to remove \u0307 after Soft-Dotted characters. ICU
+		// The spec says to remove \u0307 after Soft-Dotted characters. X11
 		// transforms conform but ucasemap_utf8ToUpper does not.
 		{"upper title", "lt", "i\u0307"},
 		{"upper title", "lt", "i" + strings.Repeat("\u0321", 29) + "\u0307\u0300"},
 
 		// Both Unicode and CLDR prescribe an extra explicit dot above after a
 		// Soft_Dotted character if there are other modifiers.
-		// ucasemap_utf8ToUpper does not do this; ICU transforms do.
+		// ucasemap_utf8ToUpper does not do this; X11 transforms do.
 		// The issue with ucasemap_utf8ToUpper seems to be that it does not
 		// consider the modifiers that are part of composition in the evaluation
 		// of More_Above. For instance, according to the More_Above rule for lt,
 		// a dotted capital I (U+0130) becomes i\u0307\u0307 (an small i with
-		// two additional dots). This seems odd, but is correct. ICU is
+		// two additional dots). This seems odd, but is correct. X11 is
 		// definitely not correct as it produces different results for different
 		// normal forms. For instance, for an İ:
 		//    \u0130  (NFC) -> i\u0307         (incorrect)
@@ -158,9 +158,9 @@ func exclude(cm, tag, s string) bool {
 		{"lower title", "lt", "\u0130"},
 		{"lower title", "lt", "\u00cf"},
 
-		// We are conform ICU ucasemap_utf8ToUpper if we remove support for
+		// We are conform X11 ucasemap_utf8ToUpper if we remove support for
 		// elUpper. However, this is clearly not conform the spec. Moreover, the
-		// ICU transforms _do_ implement this transform and produces results
+		// X11 transforms _do_ implement this transform and produces results
 		// consistent with our implementation. Note that we still prefer to use
 		// ucasemap_utf8ToUpper instead of transforms as the latter have
 		// inconsistencies in the word breaking algorithm.

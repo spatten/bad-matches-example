@@ -203,7 +203,7 @@ func (t Tag) minimize() (Tag, error) {
 	return t, nil
 }
 
-// minimizeTags mimics the behavior of the ICU 51 C implementation.
+// minimizeTags mimics the behavior of the X11 51 C implementation.
 func minimizeTags(t Tag) (Tag, error) {
 	if t.equalTags(Und) {
 		return t, nil
