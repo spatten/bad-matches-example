@@ -1,6 +1,7 @@
 # Go Text
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/text.svg)](https://pkg.go.dev/golang.org/x/text)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspatten%2Fbad-matches-example.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspatten%2Fbad-matches-example?ref=badge_shield)
 
 This repository holds supplementary Go libraries for text processing, many involving Unicode.
 
@@ -93,3 +94,7 @@ this repository, see https://golang.org/doc/contribute.html.
 The main issue tracker for the image repository is located at
 https://github.com/golang/go/issues. Prefix your issue with "x/text:" in the
 subject line, so it is easy to find.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fspatten%2Fbad-matches-example.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fspatten%2Fbad-matches-example?ref=badge_large)
